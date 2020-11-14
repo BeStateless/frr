@@ -49,7 +49,6 @@ override_dh_auto_configure:
 		\
 		$(CONF_SYSTEMD) \
 		$(CONF_RPKI) \
-		--with-libpam \
 		--enable-doc \
 		--enable-doc-html \
 		--enable-snmp \
