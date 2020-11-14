@@ -53,7 +53,9 @@ override_dh_auto_configure:
 		--enable-doc-html \
 		--enable-snmp \
 		--enable-fpm \
-		--disable-protobuf \
+		--enable-datacenter \
+		--enable-protobuf \
+		--enable-grpc \
 		--disable-zeromq \
 		--enable-ospfapi \
 		--enable-bgp-vnc \
