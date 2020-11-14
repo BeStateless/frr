@@ -37,34 +37,38 @@ export PYTHON=python3
 override_dh_auto_configure:
 	$(shell dpkg-buildflags --export=sh); \
 	dh_auto_configure -- \
+		$(CONF_RPKI) \
+		$(CONF_SYSTEMD) \
+		--disable-dependency-tracking \
+		--enable-ospfapi \
+		--disable-zeromq \
+		--enable-bgp-vnc \
+		--enable-configfile-mask=0640 \
+		--enable-datacenter \
+		--enable-doc \
+		--enable-doc-html \
 		--enable-exampledir=/usr/share/doc/frr/examples/ \
+		--enable-fpm \
+		--enable-group=frr \
+		--disable-grpc \
+		--enable-logfile-mask=0640 \
+		--enable-multipath=64 \
+		--enable-pimd \
+		--disable-protobuf \
+		--enable-snmp \
+		--enable-systemd \
+		--enable-user=frr \
+		--enable-vty-group=frrvty \
+		--libdir=/usr/lib/$(DEB_HOST_MULTIARCH)/frr \
 		--localstatedir=/var/run/frr \
 		--sbindir=/usr/lib/frr \
 		--sysconfdir=/etc/frr \
-		--with-vtysh-pager=/usr/bin/pager \
-		--libdir=/usr/lib/$(DEB_HOST_MULTIARCH)/frr \
-		--with-moduledir=/usr/lib/$(DEB_HOST_MULTIARCH)/frr/modules \
-		LIBTOOLFLAGS="-rpath /usr/lib/$(DEB_HOST_MULTIARCH)/frr" \
-		--disable-dependency-tracking \
-		\
-		$(CONF_SYSTEMD) \
-		$(CONF_RPKI) \
 		--with-libpam \
-		--enable-doc \
-		--enable-doc-html \
-		--enable-snmp \
-		--enable-fpm \
-		--disable-protobuf \
-		--disable-zeromq \
-		--enable-ospfapi \
-		--enable-bgp-vnc \
-		--enable-multipath=256 \
-		\
-		--enable-user=frr \
-		--enable-group=frr \
-		--enable-vty-group=frrvty \
-		--enable-configfile-mask=0640 \
-		--enable-logfile-mask=0640 \
+		--with-moduledir=/usr/lib/$(DEB_HOST_MULTIARCH)/frr/modules \
+		--with-pkg-git-version \
+		--with-vtysh-pager=/usr/bin/pager
+		--with-vtysh-pager=/usr/bin/pager \
+		LIBTOOLFLAGS="-rpath /usr/lib/$(DEB_HOST_MULTIARCH)/frr"
 		# end
 
 override_dh_auto_install:
@@ -78,12 +82,16 @@ ifeq ($(filter pkg.frr.nosystemd,$(DEB_BUILD_PROFILES)),)
 	cp tools/frr.service debian/frr.service
 endif
 	cp tools/frrinit.sh debian/frr.init
-	-rm -f debian/tmp/usr/lib/frr/frr
+	# I don't know why debian removes this very useful script by default
+	#-rm -f debian/tmp/usr/lib/frr/frr
 
 # install config files
 	mkdir -p debian/tmp/etc
 	cp -r tools/etc/* debian/tmp/etc/
 	-rm debian/tmp/etc/frr/daemons.conf
+	# If you are using individual config files to configure frr then frr.conf will troll you.  Removing it by default.
+	# It was doing nothing useful and it was also eating all of the logs.
+	-rm debian/tmp/etc/frr/frr.conf
 
 	sed -e 's#^!log file #!log file /var/log/frr/#' -i debian/tmp/usr/share/doc/frr/examples/*sample*
 
