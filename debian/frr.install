@@ -3,6 +3,7 @@ etc/
 tools/frr-reload usr/lib/frr/
 usr/bin/mtracebis
 usr/bin/vtysh
+usr/lib/*/frr/*.so*
 usr/lib/*/frr/libfrr.*
 usr/lib/*/frr/libfrrcares.*
 usr/lib/*/frr/libfrrospfapiclient.*
@@ -13,7 +14,6 @@ usr/lib/*/frr/modules/zebra_fpm.so
 usr/lib/*/frr/modules/zebra_irdp.so
 usr/lib/frr/*.sh
 usr/lib/frr/*d
-usr/lib/frr/*.so*
 usr/lib/frr/frr
 usr/lib/frr/watchfrr
 usr/lib/frr/zebra
