@@ -4,6 +4,9 @@ tools/frr-reload usr/lib/frr/
 usr/bin/mtracebis
 usr/bin/vtysh
 # usr/lib/*/frr/*.so*
+usr/lib/*/frr/libmlag_pb.so*
+usr/lib/*/frr/libfrr_pb.so*
+usr/lib/*/frr/libfrrfpm_pb.so*
 usr/lib/*/frr/libfrr.*
 usr/lib/*/frr/libfrrcares.*
 usr/lib/*/frr/libfrrospfapiclient.*
