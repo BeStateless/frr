@@ -54,7 +54,7 @@ override_dh_auto_configure:
 		--enable-logfile-mask=0640 \
 		--enable-multipath=64 \
 		--enable-pimd \
-		--enable-protobuf \
+		--disable-protobuf \
 		--enable-snmp \
 		--enable-systemd \
 		--enable-user=frr \
