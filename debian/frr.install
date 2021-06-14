@@ -2,6 +2,7 @@ etc/
 usr/bin/vtysh
 usr/lib/*/frr/libmlag_pb.so*
 usr/lib/*/frr/libfrr_pb.so*
+usr/lib/*/frr/libfrrgrpc_pb.so*
 usr/lib/*/frr/libfrrfpm_pb.so*
 usr/bin/mtracebis
 usr/lib/*/frr/libfrr.*
